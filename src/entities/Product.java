@@ -25,6 +25,7 @@ public class Product {
                 + quantity
                 + " units, Total: $ "
                 + totalValueInStock();
+        
 
     }
 
