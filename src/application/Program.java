@@ -1,32 +1,50 @@
 package application;
 
-import entities.Account;
-import entities.BusinessAccount;
-import entities.SavingsAccount;
+import entities.Shape;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+import entities.enums.Color;
+import entities.Rectangle;
+import entities.Circle;
 
-public class Program {
 
-    public static void main(String[] args) {
-
-        List<Account> list = new ArrayList<>();
-        list.add(new SavingsAccount(1001, "alex", 500.0, 0.01));
-        list.add(new BusinessAccount(1002, "Maria", 1000.0, 400.0));
-        list.add(new SavingsAccount(1003, "Jorge", 1500.0, 0.01));
-        list.add(new BusinessAccount(1005, "Marcos", 1500.0, 500.0));
-
-        double soma = 0.0;
-        for (Account acc : list) {
-            soma += acc.getBalance();
+public class Program{
+    public static void main(String[] args){
+        Locale.setDefault(Locale.US);
+        Scanner sc = new Scanner(System.in);
+        
+        List<Shape> list = new ArrayList<>(); 
+        
+        System.out.print("Enter the number of shapes: ");
+        int n = sc.nextInt();
+        
+        for (int i = 1; i < n; i++) {
+            System.out.println("Shape #" + i + "data:");
+            System.out.print("Rectangle or Cicle (r/c)?");
+            char ch = sc.next().charAt(0);
+            System.out.print("Color (BLACK/BLUE/RED: ");
+            Color color = Color.valueOf(sc.next());
+            if(ch == 'r'){
+                System.out.println("Width: ");
+                double width = sc.nextDouble();
+                System.out.println("Height: ");
+                double height = sc.nextDouble();
+                list.add(new Rectangle(width, height, color));
+            }else{
+                System.out.println("Radius: ");
+                double radius = sc.nextDouble();
+                list.add(new Circle(radius, color));
+            }
         }
-        System.out.printf("Total balance: %.2f%n", soma);
-
-        for (Account acc : list) {
-            acc.deposit(10.0);
+        
+        System.out.println();
+        System.out.println("SHAPE AREAS:");
+        for (Shape shape : list){
+            System.out.println(shape.area());
         }
-        for (Account acc : list){
-            System.out.println(acc.getBalance());
-        }
+        
+        sc.close();
     }
 }
